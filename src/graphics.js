@@ -40,10 +40,22 @@ export const Graphics = {
         Path: "assets/close.png",
         Image: new Image()
     },
+    ButtonLeft: {
+        Path: "assets/arrow_left.png",
+        Image: new Image()
+    },
+    ButtonRight: {
+        Path: "assets/arrow_right.png",
+        Image: new Image()
+    },
 
     // Items
     ItemCandle: {
         Path: "assets/candle.png",
+        Image: new Image()
+    },
+    ItemUnknown: {
+        Path: "assets/unknown.png",
         Image: new Image()
     },
 }
@@ -66,8 +78,11 @@ Graphics.Stage.forEach(stage => {
     "DevotionFill",
     "ButtonBuy",
     "ButtonClose",
-    
-    "ItemCandle"
+    "ButtonLeft",
+    "ButtonRight",
+
+    "ItemCandle",
+    "ItemUnknown"
 ].forEach(name => {
     Graphics[name].Image.src = Graphics[name].Path;
 });
