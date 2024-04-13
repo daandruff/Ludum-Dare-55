@@ -1,5 +1,5 @@
-import { Graphics } from "/src/graphics.js"
-import { Clock, Timer, Timer_Type } from "/src/clock.js";
+import { Graphics } from "./graphics.js"
+import { Clock, Timer, Timer_Type } from "./clock.js";
 
 const ItemList = [
     {

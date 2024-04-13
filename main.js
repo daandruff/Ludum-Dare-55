@@ -1,5 +1,5 @@
-import { Game } from "/src/game.js";
-import { Clock, Timer, Timer_Type } from "/src/clock.js";
+import { Game } from "./src/game.js";
+import { Clock, Timer, Timer_Type } from "./src/clock.js";
 
 // Constants
 const Canvas = document.getElementById("canvas");
