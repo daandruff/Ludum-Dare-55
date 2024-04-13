@@ -220,6 +220,34 @@ export class Game {
             return;
         }
 
+        if (x > 52 && y > 49 && x < 67 && y < 62 && this.state === Game_State.Main && this.stage === 14) {
+            this.stage++;
+            return;
+        }
+
+        if (this.stage === 15) {
+            if (x > 65 && y > 30 && x < 79 && y < 39 && this.state === Game_State.Main) {
+                this.stage++;
+                return;
+            } else {
+                this.stage--;
+                return;
+            }
+        }
+
+        if (this.stage === 16) {
+            if (x > 38 && y > 71 && x < 54 && y < 84 && this.state === Game_State.Main) {
+                this.stage++;
+                this.screenShake = 1000;
+                this.devotionCurrent += 10;
+                return;
+            } else {
+                this.stage--;
+                this.stage--;
+                return;
+            }
+        }
+
         console.log(x,y);
     }
 
