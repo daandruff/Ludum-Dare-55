@@ -40,6 +40,18 @@ export const Graphics = {
         {
             Paths: ["assets/stages/stage_09_1.png", "assets/stages/stage_09_2.png"],
             Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_10_1.png", "assets/stages/stage_10_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_11_1.png", "assets/stages/stage_11_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_12_1.png", "assets/stages/stage_12_2.png"],
+            Images: []
         }
     ],
 
@@ -84,6 +96,10 @@ export const Graphics = {
         Path: "assets/arrow_right.png",
         Image: new Image()
     },
+    NewItem: {
+        Path: "assets/newitem.png",
+        Image: new Image()
+    },
 
     // Items
     ItemCandle: {
@@ -92,6 +108,10 @@ export const Graphics = {
     },
     ItemMatch: {
         Path: "assets/match.png",
+        Image: new Image()
+    },
+    ItemKnife: {
+        Path: "assets/knife.png",
         Image: new Image()
     },
     ItemUnknown: {
@@ -121,9 +141,11 @@ Graphics.Stage.forEach(stage => {
     "ButtonClose",
     "ButtonLeft",
     "ButtonRight",
+    "NewItem",
 
     "ItemCandle",
     "ItemMatch",
+    "ItemKnife",
     "ItemUnknown"
 ].forEach(name => {
     Graphics[name].Image.src = Graphics[name].Path;

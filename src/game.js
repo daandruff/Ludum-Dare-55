@@ -5,28 +5,28 @@ const ItemList = [
     {
         Name: "Candle",
         Image: Graphics.ItemCandle.Image,
-        Cost: 5,
+        Value: 2,
         Unlocked: true,
         Blocked: false
     },
     {
         Name: "Match",
         Image: Graphics.ItemMatch.Image,
-        Cost: 30,
+        Value: 10,
         Unlocked: false,
         Blocked: false
     },
     {
         Name: "Knife",
-        Image: Graphics.ItemUnknown.Image,
-        Cost: 30,
+        Image: Graphics.ItemKnife.Image,
+        Value: 20,
         Unlocked: false,
         Blocked: false
     },
     {
         Name: "Hand",
         Image: Graphics.ItemUnknown.Image,
-        Cost: 30,
+        Value: 30,
         Unlocked: false,
         Blocked: false
     }
@@ -43,33 +43,38 @@ export class Game {
         this.height = height;
         this.context = context;
 
-        this.devotionCurrent = 50;
+        this.devotionCurrent = 0;
         this.devotionMax = 100;
-        this.timeToDevotion = 2000;
-        this.timeToDevotionLeft = this.timeToDevotion;
         this.stage = 1;
         this.activeItem = 0;
+        this.newItem = 0;
+
+        this.screenShake = 0;
 
         this.state = Game_State.Main;
     }
 
     update(dt, tick) {
-        this.timeToDevotionLeft -= dt;
-        if (this.timeToDevotionLeft <= 0) {
-            this.timeToDevotionLeft = this.timeToDevotion;
-            this.devotionCurrent = this.devotionCurrent >= 100 ? 100 : this.devotionCurrent + 1;
-        }
+        this.screenShake = this.screenShake <= 0 ? 0 : this.screenShake - dt;
+        this.newItem = this.newItem <= 0 ? 0 : this.newItem - dt;
     }
 
     draw(tick) {
         let flipflop = Math.abs(Math.round(tick / 500) % 2);
+        let screenShake = {
+            x: Math.round((Math.random() * 4 - 2) * (this.screenShake / 1000)),
+            y: Math.round((Math.random() * 4 - 2) * (this.screenShake / 1000)),
+        }
         let animationSpeed = 700;
 
-        this.context.drawImage(Graphics.Stage[this.stage].Images[flipflop], 0, 0);
+        this.context.drawImage(Graphics.Stage[this.stage].Images[flipflop], 0 + screenShake.x, screenShake.y);
 
         switch (this.state) {
             case Game_State.Main:
                 this.context.drawImage(Graphics.ButtonBuy.Image, 0, 0);
+                if (this.newItem) {
+                    this.context.drawImage(Graphics.NewItem.Image, 0, 0);
+                }
                 break;
             case Game_State.Tome:
                 this.context.drawImage(Graphics.Dither.Image, 0, 0);
@@ -136,26 +141,31 @@ export class Game {
             let item = ItemList[this.activeItem];
 
             if (this.stage > 0 && this.stage < 6 && item.Name === "Candle") {
-                if (this.devotionCurrent >= item.Cost) {
-                    this.devotionCurrent -= item.Cost;
-                    this.stage++;
-                    this.state = Game_State.Main;
+                this.devotionCurrent += item.Value;
+                this.stage++;
+                this.state = Game_State.Main;
+                this.screenShake = 500;
 
-                    if (this.stage === 6) {
-                        item.Blocked = true;
-                        ItemList[1].Unlocked = true;
-                    }
-                    
-                    return;
-                }
-            } else if (this.stage === 6 && item.Name === "Match") {
-                if (this.devotionCurrent >= item.Cost) {
-                    this.devotionCurrent -= item.Cost;
-                    this.stage++;
-                    this.state = Game_State.Main;
+                if (this.stage === 6) {
                     item.Blocked = true;
-                    return;
+                    ItemList[1].Unlocked = true;
+                    this.newItem = 3000;
                 }
+                
+                return;
+            } else if (this.stage === 6 && item.Name === "Match") {
+                this.devotionCurrent += item.Value;
+                this.stage++;
+                this.state = Game_State.Main;
+                this.screenShake = 1000;
+                item.Blocked = true;
+                return;
+            } else if (this.stage === 9 && item.Name === "Knife") {
+                this.stage++;
+                this.state = Game_State.Main;
+                this.screenShake = 1000;
+                item.Blocked = true;
+                return;
             }
         }
 
@@ -166,6 +176,22 @@ export class Game {
 
         if (x > 25 && y > 18 && x < 133 && y < 119 && this.state === Game_State.Main && this.stage === 8) {
             this.stage++;
+            ItemList[2].Unlocked = true;
+            this.newItem = 3000;
+            return;
+        }
+
+        if (x > 75 && y > 91 && x < 148 && y < 119 && this.state === Game_State.Main && this.stage === 10) {
+            this.stage++;
+            return;
+        }
+
+        if (x > 25 && y > 18 && x < 133 && y < 119 && this.state === Game_State.Main && this.stage === 11) {
+            this.devotionCurrent += ItemList[2].Value;
+            this.stage++;
+            ItemList[3].Unlocked = true;
+            this.newItem = 3000;
+            this.screenShake = 1000;
             return;
         }
 
@@ -173,14 +199,6 @@ export class Game {
     }
 
     keyboardEvent(code) {
-        switch (code) {
-            case "NumpadAdd":
-                this.stage++;
-                break;
-            case "NumpadSubtract":
-                this.stage--;
-                break;
-        }
-        console.log(code);
+        
     }
 }
