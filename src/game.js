@@ -1,4 +1,5 @@
 import { Graphics } from "./graphics.js"
+import { Sound } from "./sound.js"
 import { Clock, Timer, Timer_Type } from "./clock.js";
 
 const ItemList = [
@@ -61,6 +62,10 @@ export class Game {
         this.state = Game_State.Main;
     }
 
+    init() {
+        Sound.Song.play();
+    }
+
     update(dt, tick) {
         this.screenShake = this.screenShake <= 0 ? 0 : this.screenShake - dt;
         this.newItem = this.newItem <= 0 ? 0 : this.newItem - dt;
@@ -116,6 +121,7 @@ export class Game {
         // Click on buy-button
         if (x > 121 && y > 123 && x < 156 && y < 140 && this.state === Game_State.Main) {
             this.state = Game_State.Tome;
+            Sound.OpenBook.play();
             return;
         }
 
@@ -131,6 +137,7 @@ export class Game {
             if (this.activeItem < 0) {
                 this.activeItem = ItemList.length - 1;
             }
+            Sound.Page.play();
             return;
         }
 
@@ -140,6 +147,7 @@ export class Game {
             if (this.activeItem >= ItemList.length) {
                 this.activeItem = 0;
             }
+            Sound.Page.play();
             return;
         }
 
@@ -150,12 +158,14 @@ export class Game {
             if (this.stage > 0 && this.stage < 6 && item.Name === "Candle") {
                 this.devotionCurrent += item.Value;
                 this.stage++;
+                Sound.Candle.play();
                 this.state = Game_State.Main;
                 this.screenShake = 500;
 
                 if (this.stage === 6) {
                     item.Blocked = true;
                     ItemList[1].Unlocked = true;
+                    Sound.NewItem.play();
                     this.newItem = 3000;
                 }
                 
@@ -165,12 +175,14 @@ export class Game {
                 this.stage++;
                 this.state = Game_State.Main;
                 this.screenShake = 1000;
+                Sound.LightMatch.play();
                 item.Blocked = true;
                 return;
             } else if (this.stage === 9 && item.Name === "Knife") {
                 this.stage++;
                 this.state = Game_State.Main;
                 this.screenShake = 1000;
+                Sound.KnifeDown.play();
                 item.Blocked = true;
                 return;
             } else if (this.stage === 12 && item.Name === "Hand") {
@@ -178,6 +190,7 @@ export class Game {
                 this.state = Game_State.Main;
                 this.screenShake = 1000;
                 item.Blocked = true;
+                Sound.NewItem.play();
                 this.newItem = 3000;
                 ItemList[4].Unlocked = true;
                 this.devotionCurrent += item.Value;
@@ -196,25 +209,30 @@ export class Game {
 
         if (x > 66 && y > 54 && x < 90 && y < 77 && this.state === Game_State.Main && this.stage === 7) {
             this.stage++;
+            Sound.Paper.play();
             return;
         }
 
         if (x > 25 && y > 18 && x < 133 && y < 119 && this.state === Game_State.Main && this.stage === 8) {
             this.stage++;
             ItemList[2].Unlocked = true;
+            Sound.NewItem.play();
             this.newItem = 3000;
             return;
         }
 
         if (x > 75 && y > 91 && x < 148 && y < 119 && this.state === Game_State.Main && this.stage === 10) {
             this.stage++;
+            Sound.KnifeUp.play();
             return;
         }
 
         if (x > 25 && y > 18 && x < 133 && y < 119 && this.state === Game_State.Main && this.stage === 11) {
             this.devotionCurrent += ItemList[2].Value;
             this.stage++;
+            Sound.HandOff.play();
             ItemList[3].Unlocked = true;
+            Sound.NewItem.play();
             this.newItem = 3000;
             this.screenShake = 1000;
             return;

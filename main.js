@@ -7,6 +7,7 @@ const Context = Canvas.getContext("2d");
 const App = new Game(160, 144, Context);
 
 // Globals
+let GameInit = true;
 let GameTime = new Clock();
 
 function runAnimationFrame() {
@@ -26,6 +27,11 @@ function runAnimationFrame() {
 window.requestAnimationFrame(runAnimationFrame);
 
 Canvas.addEventListener("click", (e) => {
+	if (GameInit) {
+		GameInit = false;
+		App.init();
+	}
+	
 	App.clickEvent(e.offsetX, e.offsetY);
 });
 
