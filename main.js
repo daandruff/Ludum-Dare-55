@@ -24,6 +24,11 @@ function runAnimationFrame() {
 }
 
 window.requestAnimationFrame(runAnimationFrame);
+
 Canvas.addEventListener("click", (e) => {
 	App.clickEvent(e.offsetX, e.offsetY);
+});
+
+window.addEventListener("keydown", (e) => {
+	App.keyboardEvent(e.code);
 });

@@ -8,6 +8,38 @@ export const Graphics = {
         {
             Paths: ["assets/stages/stage_01_1.png", "assets/stages/stage_01_2.png"],
             Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_02_1.png", "assets/stages/stage_02_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_03_1.png", "assets/stages/stage_03_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_04_1.png", "assets/stages/stage_04_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_05_1.png", "assets/stages/stage_05_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_06_1.png", "assets/stages/stage_06_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_07_1.png", "assets/stages/stage_07_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_08_1.png", "assets/stages/stage_08_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_09_1.png", "assets/stages/stage_09_2.png"],
+            Images: []
         }
     ],
 
@@ -32,6 +64,10 @@ export const Graphics = {
         Path: "assets/devotion_fill.png",
         Image: new Image()
     },
+    Blocked: {
+        Path: "assets/blocked.png",
+        Image: new Image()
+    },
     ButtonBuy: {
         Path: "assets/buy.png",
         Image: new Image()
@@ -52,6 +88,10 @@ export const Graphics = {
     // Items
     ItemCandle: {
         Path: "assets/candle.png",
+        Image: new Image()
+    },
+    ItemMatch: {
+        Path: "assets/match.png",
         Image: new Image()
     },
     ItemUnknown: {
@@ -76,12 +116,14 @@ Graphics.Stage.forEach(stage => {
     "Shadow",
     "DevotionBar",
     "DevotionFill",
+    "Blocked",
     "ButtonBuy",
     "ButtonClose",
     "ButtonLeft",
     "ButtonRight",
 
     "ItemCandle",
+    "ItemMatch",
     "ItemUnknown"
 ].forEach(name => {
     Graphics[name].Image.src = Graphics[name].Path;
