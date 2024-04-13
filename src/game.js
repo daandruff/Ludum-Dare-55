@@ -19,14 +19,21 @@ const ItemList = [
     {
         Name: "Knife",
         Image: Graphics.ItemKnife.Image,
-        Value: 20,
+        Value: 15,
         Unlocked: false,
         Blocked: false
     },
     {
         Name: "Hand",
-        Image: Graphics.ItemUnknown.Image,
-        Value: 30,
+        Image: Graphics.ItemHand.Image,
+        Value: 20,
+        Unlocked: false,
+        Blocked: false
+    },
+    {
+        Name: "Book",
+        Image: Graphics.ItemBook.Image,
+        Value: 15,
         Unlocked: false,
         Blocked: false
     }
@@ -165,6 +172,24 @@ export class Game {
                 this.state = Game_State.Main;
                 this.screenShake = 1000;
                 item.Blocked = true;
+                return;
+            } else if (this.stage === 12 && item.Name === "Hand") {
+                this.stage++;
+                this.state = Game_State.Main;
+                this.screenShake = 1000;
+                item.Blocked = true;
+                this.newItem = 3000;
+                ItemList[4].Unlocked = true;
+                this.devotionCurrent += item.Value;
+                return;
+            } else if (this.stage === 13 && item.Name === "Book") {
+                this.stage++;
+                this.state = Game_State.Main;
+                this.screenShake = 1000;
+                item.Blocked = true;
+                //this.newItem = 3000;
+                //ItemList[4].Unlocked = true;
+                this.devotionCurrent += item.Value;
                 return;
             }
         }

@@ -52,6 +52,14 @@ export const Graphics = {
         {
             Paths: ["assets/stages/stage_12_1.png", "assets/stages/stage_12_2.png"],
             Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_13_1.png", "assets/stages/stage_13_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_14_1.png", "assets/stages/stage_14_2.png"],
+            Images: []
         }
     ],
 
@@ -114,6 +122,14 @@ export const Graphics = {
         Path: "assets/knife.png",
         Image: new Image()
     },
+    ItemHand: {
+        Path: "assets/hand.png",
+        Image: new Image()
+    },
+    ItemBook: {
+        Path: "assets/book.png",
+        Image: new Image()
+    },
     ItemUnknown: {
         Path: "assets/unknown.png",
         Image: new Image()
@@ -146,6 +162,8 @@ Graphics.Stage.forEach(stage => {
     "ItemCandle",
     "ItemMatch",
     "ItemKnife",
+    "ItemHand",
+    "ItemBook",
     "ItemUnknown"
 ].forEach(name => {
     Graphics[name].Image.src = Graphics[name].Path;
