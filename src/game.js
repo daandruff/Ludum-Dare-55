@@ -48,6 +48,7 @@ const ItemList = [
 ];
 
 const Game_State = {
+    Start: 0,
     Main: 1,
     Tome: 2,
     Paper: 3,
@@ -68,7 +69,7 @@ export class Game {
 
         this.screenShake = 0;
 
-        this.state = Game_State.Main;
+        this.state = Game_State.Start;
     }
 
     init() {
@@ -88,71 +89,83 @@ export class Game {
         }
         let animationSpeed = 700;
 
-        this.context.drawImage(Graphics.Stage[this.stage].Images[flipflop], 0 + screenShake.x, screenShake.y);
+        if (this.state === Game_State.Start) {
+            this.context.drawImage(Graphics.Stage[0].Images[flipflop], 0, 0);
 
-        if (this.tutor === 0) {
-            this.context.drawImage(Graphics.TutorAdd.Image, 0, 0);
-        }
+            this.context.drawImage(Graphics.TitleTop.Image, 0, Math.round(Math.sin(200 + tick / animationSpeed) * 5));
+            this.context.drawImage(Graphics.TitleBottom.Image, 0, Math.round(Math.sin(300 + tick / animationSpeed) * 5));
+        } else {
+            this.context.drawImage(Graphics.Stage[this.stage].Images[flipflop], 0 + screenShake.x, screenShake.y);
 
-        switch (this.state) {
-            case Game_State.Main:
-                this.context.drawImage(Graphics.ButtonBuy.Image, 0, 0);
-                if (this.newItem) {
-                    this.context.drawImage(Graphics.NewItem.Image, 0, 0);
-                }
-                break;
-            case Game_State.Tome:
-                this.context.drawImage(Graphics.Dither.Image, 0, 0);
-                this.context.drawImage(Graphics.Tome.Image, 0, Math.round(Math.sin(tick / animationSpeed) * 5) + 10);
+            if (this.tutor === 0) {
+                this.context.drawImage(Graphics.TutorAdd.Image, 0, 0);
+            }
 
-                this.context.drawImage(Graphics.Shadow.Image, 0, Math.round(Math.sin(200 + tick / animationSpeed) * 5) + 10);
-
-                if (ItemList[this.activeItem].Unlocked) {
-                    this.context.drawImage(ItemList[this.activeItem].Image, 0, Math.round(Math.sin(300 + tick / animationSpeed) * 5) - 10);
-                } else {
-                    this.context.drawImage(Graphics.ItemUnknown.Image, 0, Math.round(Math.sin(300 + tick / animationSpeed) * 5) - 10);
-                }
-
-                if (ItemList[this.activeItem].Blocked) {
-                    this.context.drawImage(Graphics.Blocked.Image, 0, Math.round(Math.sin(250 + tick / animationSpeed) * 5) - 10);
-                }
-
-                let navpoints = ItemList.length;
-                let navwidth = 6 * navpoints;
-                for (let i = 0; i < navpoints; i++) {
-                    this.context.fillStyle = "#381233";
-                    this.context.fillRect((80 - navwidth / 2) + 6 * i + 1, 110, 4, 4);
-                    if (i === this.activeItem) {
-                        this.context.fillStyle = "#da871d";
-                        this.context.fillRect((80 - navwidth / 2) + 6 * i + 2, 111, 2, 2);
+            switch (this.state) {
+                case Game_State.Main:
+                    this.context.drawImage(Graphics.ButtonBuy.Image, 0, 0);
+                    if (this.newItem) {
+                        this.context.drawImage(Graphics.NewItem.Image, 0, 0);
                     }
-                }
+                    break;
+                case Game_State.Tome:
+                    this.context.drawImage(Graphics.Dither.Image, 0, 0);
+                    this.context.drawImage(Graphics.Tome.Image, 0, Math.round(Math.sin(tick / animationSpeed) * 5) + 10);
 
-                if (this.tutor === 0) {
-                    this.context.drawImage(Graphics.TutorPut.Image, 0, 0);
-                }
+                    this.context.drawImage(Graphics.Shadow.Image, 0, Math.round(Math.sin(200 + tick / animationSpeed) * 5) + 10);
 
-                this.context.drawImage(Graphics.ButtonLeft.Image, -63, Math.round(Math.sin(400 + tick / animationSpeed) * 5) + 10);
-                this.context.drawImage(Graphics.ButtonRight.Image, 63, Math.round(Math.sin(400 + tick / animationSpeed) * 5) + 10);
+                    if (ItemList[this.activeItem].Unlocked) {
+                        this.context.drawImage(ItemList[this.activeItem].Image, 0, Math.round(Math.sin(300 + tick / animationSpeed) * 5) - 10);
+                    } else {
+                        this.context.drawImage(Graphics.ItemUnknown.Image, 0, Math.round(Math.sin(300 + tick / animationSpeed) * 5) - 10);
+                    }
 
-                this.context.drawImage(Graphics.ButtonClose.Image, 0, 0);
-                break;
-            case Game_State.Paper:
-                this.context.drawImage(Graphics["PaperClose" + flipflop].Image, 0, 0);
-                break;
-        }
+                    if (ItemList[this.activeItem].Blocked) {
+                        this.context.drawImage(Graphics.Blocked.Image, 0, Math.round(Math.sin(250 + tick / animationSpeed) * 5) - 10);
+                    }
 
-        this.context.drawImage(Graphics.DevotionBar.Image, 0, 0);
+                    let navpoints = ItemList.length;
+                    let navwidth = 6 * navpoints;
+                    for (let i = 0; i < navpoints; i++) {
+                        this.context.fillStyle = "#381233";
+                        this.context.fillRect((80 - navwidth / 2) + 6 * i + 1, 110, 4, 4);
+                        if (i === this.activeItem) {
+                            this.context.fillStyle = "#da871d";
+                            this.context.fillRect((80 - navwidth / 2) + 6 * i + 2, 111, 2, 2);
+                        }
+                    }
 
-        let width = Math.round((146 / this.devotionMax) * this.devotionCurrent);
-        this.context.drawImage(Graphics.DevotionFill.Image, 0, 0, 7 + width, 144, 0, 0, 7 + width, 144);
+                    if (this.tutor === 0) {
+                        this.context.drawImage(Graphics.TutorPut.Image, 0, 0);
+                    }
 
-        if (this.tutor === 3 && this.state === Game_State.Main) {
-            this.context.drawImage(Graphics.TutorDevotion.Image, 0, 0);
+                    this.context.drawImage(Graphics.ButtonLeft.Image, -63, Math.round(Math.sin(400 + tick / animationSpeed) * 5) + 10);
+                    this.context.drawImage(Graphics.ButtonRight.Image, 63, Math.round(Math.sin(400 + tick / animationSpeed) * 5) + 10);
+
+                    this.context.drawImage(Graphics.ButtonClose.Image, 0, 0);
+                    break;
+                case Game_State.Paper:
+                    this.context.drawImage(Graphics["PaperClose" + flipflop].Image, 0, 0);
+                    break;
+            }
+
+            this.context.drawImage(Graphics.DevotionBar.Image, 0, 0);
+
+            let width = Math.round((146 / this.devotionMax) * this.devotionCurrent);
+            this.context.drawImage(Graphics.DevotionFill.Image, 0, 0, 7 + width, 144, 0, 0, 7 + width, 144);
+
+            if (this.tutor === 3 && this.state === Game_State.Main) {
+                this.context.drawImage(Graphics.TutorDevotion.Image, 0, 0);
+            }
         }
     }
 
     clickEvent(x, y) {
+        if (this.state === Game_State.Start) {
+            this.state = Game_State.Main;
+            return;
+        }
+
         if (this.state === Game_State.Paper) {
             this.state = Game_State.Main;
             Sound.Paper.play();

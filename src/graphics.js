@@ -75,6 +75,16 @@ export const Graphics = {
         }
     ],
 
+    // Titlescreen
+    TitleTop: {
+        Path: "assets/title_top.png",
+        Image: new Image()
+    },
+    TitleBottom: {
+        Path: "assets/title_bottom.png",
+        Image: new Image()
+    },
+
     // Tutorial
     TutorAdd: {
         Path: "assets/tutorial/addthings.png",
@@ -185,6 +195,9 @@ Graphics.Stage.forEach(stage => {
 
 // Ugly, but fine way to assign all image-paths
 [
+    "TitleTop",
+    "TitleBottom",
+    
     "Dither",
     "Tome",
     "PaperClose0",
