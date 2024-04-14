@@ -192,6 +192,10 @@ export const Graphics = {
         {
             Paths: ["assets/stages/stage_47_1.png", "assets/stages/stage_47_2.png"],
             Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_48_1.png", "assets/stages/stage_48_2.png"],
+            Images: []
         }
     ],
 

@@ -76,6 +76,7 @@ export class Game {
         this.newItem = 0;
         this.tutor = 0;
         this.sound = true;
+        this.lockTome = false;
 
         this.screenShake = 0;
         this.activeTimeouts = [];
@@ -114,7 +115,10 @@ export class Game {
 
             switch (this.state) {
                 case Game_State.Main:
-                    this.context.drawImage(Graphics.ButtonBuy.Image, 0, 0);
+                    if (!this.lockTome) {
+                        this.context.drawImage(Graphics.ButtonBuy.Image, 0, 0);
+                    }
+                    
                     if (this.newItem) {
                         this.context.drawImage(Graphics.NewItem.Image, 0, 0);
                     }
@@ -160,10 +164,12 @@ export class Game {
                     break;
             }
 
-            this.context.drawImage(Graphics.DevotionBar.Image, 0, 0);
+            if (!Game_State.Done) {
+                this.context.drawImage(Graphics.DevotionBar.Image, 0, 0);
 
-            let width = Math.round((146 / this.devotionMax) * this.devotionCurrent);
-            this.context.drawImage(Graphics.DevotionFill.Image, 0, 0, 7 + width, 144, 0, 0, 7 + width, 144);
+                let width = Math.round((146 / this.devotionMax) * this.devotionCurrent);
+                this.context.drawImage(Graphics.DevotionFill.Image, 0, 0, 7 + width, 144, 0, 0, 7 + width, 144);
+            }
 
             if (this.tutor === 3 && this.state === Game_State.Main) {
                 this.context.drawImage(Graphics.TutorDevotion.Image, 0, 0);
@@ -196,7 +202,7 @@ export class Game {
         }
 
         // Click on buy-button
-        if (x > 121 && y > 123 && x < 156 && y < 140 && this.state === Game_State.Main) {
+        if (x > 121 && y > 123 && x < 156 && y < 140 && this.state === Game_State.Main && !this.lockTome) {
             this.state = Game_State.Tome;
             Sound.OpenBook.play();
             return;
@@ -306,15 +312,17 @@ export class Game {
                 this.screenShake = 1000;
                 Sound.BookDown.play();
                 item.Blocked = true;
+                this.lockTome = true;
                 this.devotionCurrent += 10;
 
-                this.activeTimeouts.push(setTimeout(() => { this.stage = 42; }, 6000));
-                this.activeTimeouts.push(setTimeout(() => { this.stage = 43; }, 6500));
-                this.activeTimeouts.push(setTimeout(() => { this.stage = 44; }, 7000));
-                this.activeTimeouts.push(setTimeout(() => { this.stage = 45; }, 7500));
-                this.activeTimeouts.push(setTimeout(() => { this.stage = 46; }, 8000));
-                this.activeTimeouts.push(setTimeout(() => { this.stage = 47; }, 8500));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 42; this.screenShake = 400; }, 6000));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 43; this.screenShake = 400; }, 6500));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 44; this.screenShake = 400; }, 7000));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 45; this.screenShake = 400; }, 7500));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 46; this.screenShake = 400; }, 8000));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 47; this.screenShake = 400; }, 8500));
                 this.activeTimeouts.push(setTimeout(() => { this.state = Game_State.Done; }, 9000));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 48; }, 12000));
                 return;
             }
         }
@@ -451,6 +459,7 @@ export class Game {
                 this.stage = 33;
                 this.devotionCurrent += 5;
                 Sound.MouthFeed.play();
+                this.lockTome = true;
                 this.activeTimeouts.push(setTimeout(() => { this.stage = 34; }, 750));
                 this.activeTimeouts.push(setTimeout(() => { this.stage = 35; }, 1500));
 
@@ -460,7 +469,7 @@ export class Game {
                 this.activeTimeouts.push(setTimeout(() => { this.stage = 39; }, 5500));
                 this.activeTimeouts.push(setTimeout(() => { this.stage = 40; }, 6000));
 
-                this.activeTimeouts.push(setTimeout(() => { this.newItem = 3000; ItemList[6].Unlocked = true; Sound.SymbolSuccess.play(); }, 10000));
+                this.activeTimeouts.push(setTimeout(() => { this.newItem = 3000; ItemList[6].Unlocked = true; Sound.SymbolSuccess.play(); this.lockTome = false; }, 10000));
                 return;
             }
         }
