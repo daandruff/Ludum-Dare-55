@@ -75,6 +75,20 @@ export const Graphics = {
         }
     ],
 
+    // Tutorial
+    TutorAdd: {
+        Path: "assets/tutorial/addthings.png",
+        Image: new Image()
+    },
+    TutorPut: {
+        Path: "assets/tutorial/putontable.png",
+        Image: new Image()
+    },
+    TutorDevotion: {
+        Path: "assets/tutorial/devotion.png",
+        Image: new Image()
+    },
+
     // UI stuff
     Dither: {
         Path: "assets/dither.png",
@@ -82,6 +96,14 @@ export const Graphics = {
     },
     Tome: {
         Path: "assets/tome.png",
+        Image: new Image()
+    },
+    PaperClose0: {
+        Path: "assets/paperclose_0.png",
+        Image: new Image()
+    },
+    PaperClose1: {
+        Path: "assets/paperclose_1.png",
         Image: new Image()
     },
     Shadow: {
@@ -130,6 +152,10 @@ export const Graphics = {
         Path: "assets/match.png",
         Image: new Image()
     },
+    ItemPaper: {
+        Path: "assets/paper.png",
+        Image: new Image()
+    },
     ItemKnife: {
         Path: "assets/knife.png",
         Image: new Image()
@@ -161,6 +187,8 @@ Graphics.Stage.forEach(stage => {
 [
     "Dither",
     "Tome",
+    "PaperClose0",
+    "PaperClose1",
     "Shadow",
     "DevotionBar",
     "DevotionFill",
@@ -171,8 +199,13 @@ Graphics.Stage.forEach(stage => {
     "ButtonRight",
     "NewItem",
 
+    "TutorAdd",
+    "TutorPut",
+    "TutorDevotion",
+
     "ItemCandle",
     "ItemMatch",
+    "ItemPaper",
     "ItemKnife",
     "ItemHand",
     "ItemBook",

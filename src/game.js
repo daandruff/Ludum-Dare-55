@@ -18,6 +18,13 @@ const ItemList = [
         Blocked: false
     },
     {
+        Name: "Paper",
+        Image: Graphics.ItemPaper.Image,
+        Value: 0,
+        Unlocked: false,
+        Blocked: false
+    },
+    {
         Name: "Knife",
         Image: Graphics.ItemKnife.Image,
         Value: 15,
@@ -27,7 +34,7 @@ const ItemList = [
     {
         Name: "Hand",
         Image: Graphics.ItemHand.Image,
-        Value: 20,
+        Value: 10,
         Unlocked: false,
         Blocked: false
     },
@@ -42,7 +49,8 @@ const ItemList = [
 
 const Game_State = {
     Main: 1,
-    Tome: 2
+    Tome: 2,
+    Paper: 3,
 }
 
 export class Game {
@@ -56,6 +64,7 @@ export class Game {
         this.stage = 1;
         this.activeItem = 0;
         this.newItem = 0;
+        this.tutor = 0;
 
         this.screenShake = 0;
 
@@ -80,6 +89,10 @@ export class Game {
         let animationSpeed = 700;
 
         this.context.drawImage(Graphics.Stage[this.stage].Images[flipflop], 0 + screenShake.x, screenShake.y);
+
+        if (this.tutor === 0) {
+            this.context.drawImage(Graphics.TutorAdd.Image, 0, 0);
+        }
 
         switch (this.state) {
             case Game_State.Main:
@@ -115,10 +128,17 @@ export class Game {
                     }
                 }
 
+                if (this.tutor === 0) {
+                    this.context.drawImage(Graphics.TutorPut.Image, 0, 0);
+                }
+
                 this.context.drawImage(Graphics.ButtonLeft.Image, -63, Math.round(Math.sin(400 + tick / animationSpeed) * 5) + 10);
                 this.context.drawImage(Graphics.ButtonRight.Image, 63, Math.round(Math.sin(400 + tick / animationSpeed) * 5) + 10);
 
                 this.context.drawImage(Graphics.ButtonClose.Image, 0, 0);
+                break;
+            case Game_State.Paper:
+                this.context.drawImage(Graphics["PaperClose" + flipflop].Image, 0, 0);
                 break;
         }
 
@@ -126,9 +146,19 @@ export class Game {
 
         let width = Math.round((146 / this.devotionMax) * this.devotionCurrent);
         this.context.drawImage(Graphics.DevotionFill.Image, 0, 0, 7 + width, 144, 0, 0, 7 + width, 144);
+
+        if (this.tutor === 3 && this.state === Game_State.Main) {
+            this.context.drawImage(Graphics.TutorDevotion.Image, 0, 0);
+        }
     }
 
     clickEvent(x, y) {
+        if (this.state === Game_State.Paper) {
+            this.state = Game_State.Main;
+            Sound.Paper.play();
+            return;
+        }
+
         // Click on buy-button
         if (x > 121 && y > 123 && x < 156 && y < 140 && this.state === Game_State.Main) {
             this.state = Game_State.Tome;
@@ -172,6 +202,7 @@ export class Game {
                 Sound.Candle.play();
                 this.state = Game_State.Main;
                 this.screenShake = 500;
+                this.tutor++;
 
                 if (this.stage === 6) {
                     item.Blocked = true;
@@ -203,7 +234,7 @@ export class Game {
                 item.Blocked = true;
                 Sound.NewItem.play();
                 this.newItem = 3000;
-                ItemList[4].Unlocked = true;
+                ItemList[5].Unlocked = true;
                 this.devotionCurrent += item.Value;
                 return;
             } else if (this.stage === 13 && item.Name === "Book") {
@@ -211,9 +242,11 @@ export class Game {
                 this.state = Game_State.Main;
                 this.screenShake = 1000;
                 item.Blocked = true;
-                //this.newItem = 3000;
-                //ItemList[4].Unlocked = true;
                 this.devotionCurrent += item.Value;
+                return;
+            } else if (item.Name === "Paper" && item.Unlocked === true) {
+                this.state = Game_State.Paper;
+                Sound.Paper.play();
                 return;
             }
         }
@@ -227,6 +260,7 @@ export class Game {
         if (x > 25 && y > 18 && x < 133 && y < 119 && this.state === Game_State.Main && this.stage === 8) {
             this.stage++;
             ItemList[2].Unlocked = true;
+            ItemList[3].Unlocked = true;
             Sound.NewItem.play();
             this.newItem = 3000;
             return;
@@ -239,10 +273,10 @@ export class Game {
         }
 
         if (x > 25 && y > 18 && x < 133 && y < 119 && this.state === Game_State.Main && this.stage === 11) {
-            this.devotionCurrent += ItemList[2].Value;
+            this.devotionCurrent += ItemList[3].Value;
             this.stage++;
             Sound.HandOff.play();
-            ItemList[3].Unlocked = true;
+            ItemList[4].Unlocked = true;
             Sound.NewItem.play();
             this.newItem = 3000;
             this.screenShake = 1000;
