@@ -124,6 +124,26 @@ export const Graphics = {
         {
             Paths: ["assets/stages/stage_30_1.png", "assets/stages/stage_30_2.png"],
             Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_31_1.png", "assets/stages/stage_31_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_32_1.png", "assets/stages/stage_32_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_33_1.png", "assets/stages/stage_33_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_34_1.png", "assets/stages/stage_34_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_35_1.png", "assets/stages/stage_35_2.png"],
+            Images: []
         }
     ],
 

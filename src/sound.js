@@ -8,7 +8,19 @@ export const Sound = {
     Paper: new Audio("assets/sound/paper.wav"),
     KnifeDown: new Audio("assets/sound/knifedown.wav"),
     KnifeUp: new Audio("assets/sound/knifeup.wav"),
-    HandOff: new Audio("assets/sound/handoff.wav")
+    HandOff: new Audio("assets/sound/handoff.wav"),
+    HandDown: new Audio("assets/sound/handdown.wav"),
+    BookDown: new Audio("assets/sound/bookontable.wav"),
+    Tick: new Audio("assets/sound/tick.wav"),
+    BookOpen: new Audio("assets/sound/bookopen.wav"),
+    Scrape: new Audio("assets/sound/scrape.wav"),
+    SymbolGlow: new Audio("assets/sound/symbolglow.wav"),
+    SymbolFail: new Audio("assets/sound/symbolfail.wav"),
+    SymbolSuccess: new Audio("assets/sound/symbolsuccess.wav"),
+    Eyes: new Audio("assets/sound/eyes.wav"),
+    MouthOpen: new Audio("assets/sound/mouthopen.wav"),
+    MouthClose: new Audio("assets/sound/mouthclose.wav"),
+    MouthFeed: new Audio("assets/sound/mouthfeed.wav")
 }
 
 Sound.Song.volume = 0.25;

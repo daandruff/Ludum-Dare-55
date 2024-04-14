@@ -69,6 +69,7 @@ export class Game {
         this.tutor = 0;
 
         this.screenShake = 0;
+        this.activeTimeouts = [];
 
         this.state = Game_State.Start;
     }
@@ -247,6 +248,7 @@ export class Game {
                 this.screenShake = 1000;
                 item.Blocked = true;
                 Sound.NewItem.play();
+                Sound.HandDown.play();
                 this.newItem = 3000;
                 ItemList[5].Unlocked = true;
                 this.devotionCurrent += item.Value;
@@ -255,6 +257,7 @@ export class Game {
                 this.stage++;
                 this.state = Game_State.Main;
                 this.screenShake = 1000;
+                Sound.BookDown.play();
                 item.Blocked = true;
                 this.devotionCurrent += item.Value;
                 return;
@@ -266,6 +269,7 @@ export class Game {
                     this.screenShake = 1000;
                     this.devotionCurrent += 10;
                     item.Blocked = true;
+                    Sound.Eyes.play();
                     setTimeout(() => { this.stage = 28; }, 500);
                     setTimeout(() => { this.stage = 29; }, 1000);
                     setTimeout(() => { this.stage = 30; }, 1500);
@@ -311,12 +315,14 @@ export class Game {
         }
 
         if (x > 52 && y > 49 && x < 67 && y < 62 && this.state === Game_State.Main && this.stage === 14) {
+            Sound.Tick.play();
             this.stage++;
             return;
         }
 
         if (this.stage === 15) {
             if (x > 65 && y > 30 && x < 79 && y < 39 && this.state === Game_State.Main) {
+                Sound.Tick.play();
                 this.stage++;
                 return;
             } else {
@@ -327,11 +333,14 @@ export class Game {
 
         if (this.stage === 16) {
             if (x > 38 && y > 71 && x < 54 && y < 84 && this.state === Game_State.Main) {
+                Sound.Tick.play();
+                Sound.BookOpen.play();
                 this.stage++;
                 this.screenShake = 1000;
                 this.devotionCurrent += 10;
                 return;
             } else {
+                Sound.Tick.play();
                 this.stage--;
                 this.stage--;
                 return;
@@ -339,6 +348,7 @@ export class Game {
         }
 
         if (this.stage >= 17 && this.stage <= 20) {
+            Sound.Scrape.play();
             if (this.stage === 17) { this.password = ''; }
 
             if (x > 74 && y > 66 && x < 84 && y < 76) {
@@ -364,22 +374,50 @@ export class Game {
             if (this.password.length === 4) {
                 setTimeout(() => {
                     if (this.password === "abcd") {
+                        Sound.SymbolGlow.play();
                         this.devotionCurrent += 10;
                         this.stage = 22;
                         this.screenShake = 500;
-                        setTimeout(() => { this.stage = 23; this.screenShake = 1000; }, 1500);
+                        setTimeout(() => { this.stage = 23; this.screenShake = 1000; Sound.SymbolSuccess.play(); }, 1500);
                         setTimeout(() => { this.stage = 24; }, 1750);
                         setTimeout(() => { this.stage = 25; }, 2000);
                         setTimeout(() => { this.stage = 26; }, 2250);
                     } else {
+                        Sound.SymbolGlow.play();
                         this.stage = 22;
                         this.screenShake = 500;
-                        setTimeout(() => { this.stage = 17; }, 1500);
+                        setTimeout(() => { this.stage = 17; Sound.SymbolFail.play(); }, 1500);
                     }
                 }, 500);
             }
             
             return;
+        }
+
+        if (this.stage === 30) {
+            if (x > 62 && y > 26 && x < 92 && y < 110 && this.state === Game_State.Main) {
+                this.stage = 31;
+                this.screenShake = 1000;
+                Sound.MouthOpen.play();
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 32; }, 750));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 31; this.screenShake = 1000; Sound.MouthClose.play(); }, 3750));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 30; }, 4500));
+                return;
+            }
+        }
+
+        if (this.stage === 32) {
+            if (x > 112 && y > 43 && x < 147 && y < 71 && this.state === Game_State.Main) {
+                this.activeTimeouts.forEach((thisTimeout) => { clearTimeout(thisTimeout); });
+
+                this.screenShake = 1000;
+                this.stage = 33;
+                this.devotionCurrent += 5;
+                Sound.MouthFeed.play();
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 34; }, 750));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 35; }, 1500));
+                return;
+            }
         }
 
         console.log(x,y, this.stage);
