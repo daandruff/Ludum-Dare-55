@@ -169,7 +169,7 @@ export class Game {
                     break;
             }
 
-            if (!Game_State.Done) {
+            if (this.state !== Game_State.Done) {
                 this.context.drawImage(Graphics.DevotionBar.Image, 0, 0);
 
                 let width = Math.round((146 / this.devotionMax) * this.devotionCurrent);
