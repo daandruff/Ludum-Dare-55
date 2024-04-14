@@ -220,6 +220,14 @@ export const Graphics = {
         Path: "assets/arrow_right.png",
         Image: new Image()
     },
+    ButtonSoundOn: {
+        Path: "assets/sound_on.png",
+        Image: new Image()
+    },
+    ButtonSoundOff: {
+        Path: "assets/sound_off.png",
+        Image: new Image()
+    },
     NewItem: {
         Path: "assets/newitem.png",
         Image: new Image()
@@ -282,6 +290,8 @@ Graphics.Stage.forEach(stage => {
     "ButtonClose",
     "ButtonLeft",
     "ButtonRight",
+    "ButtonSoundOn",
+    "ButtonSoundOff",
     "NewItem",
 
     "TutorAdd",

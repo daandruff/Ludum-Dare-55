@@ -23,5 +23,16 @@ export const Sound = {
     MouthFeed: new Audio("assets/sound/mouthfeed.wav")
 }
 
+let SoundOn = 1;
+
 Sound.Song.volume = 0.25;
 Sound.Song.loop = true;
+
+export function Sound_Toggle() {
+    SoundOn = SoundOn === 1 ? 0 : 1;
+    for (let key in Sound) {
+        Sound[key].volume = SoundOn;
+    }
+
+    Sound.Song.volume = 0.25 * SoundOn;
+}

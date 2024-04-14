@@ -1,5 +1,5 @@
 import { Graphics } from "./graphics.js"
-import { Sound } from "./sound.js"
+import { Sound, Sound_Toggle } from "./sound.js"
 import { Clock, Timer, Timer_Type } from "./clock.js";
 
 const ItemList = [
@@ -67,6 +67,7 @@ export class Game {
         this.password = '';
         this.newItem = 0;
         this.tutor = 0;
+        this.sound = true;
 
         this.screenShake = 0;
         this.activeTimeouts = [];
@@ -160,9 +161,21 @@ export class Game {
                 this.context.drawImage(Graphics.TutorDevotion.Image, 0, 0);
             }
         }
+
+        if (this.sound) {
+            this.context.drawImage(Graphics.ButtonSoundOn.Image, 0, 0);
+        } else {
+            this.context.drawImage(Graphics.ButtonSoundOff.Image, 0, 0);
+        }
     }
 
     clickEvent(x, y) {
+        if (x > 4 && y > 125 && x < 17 && y < 138) {
+            this.sound = !this.sound;
+            Sound_Toggle();
+            return;
+        }
+
         if (this.state === Game_State.Start) {
             this.state = Game_State.Main;
             return;
@@ -424,6 +437,5 @@ export class Game {
     }
 
     keyboardEvent(code) {
-        
     }
 }
