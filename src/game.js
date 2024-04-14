@@ -44,6 +44,13 @@ const ItemList = [
         Value: 15,
         Unlocked: false,
         Blocked: false
+    },
+    {
+        Name: "Statuette",
+        Image: Graphics.ItemStatuette.Image,
+        Value: 15,
+        Unlocked: false,
+        Blocked: false
     }
 ];
 
@@ -52,6 +59,7 @@ const Game_State = {
     Main: 1,
     Tome: 2,
     Paper: 3,
+    Done: 4,
 }
 
 export class Game {
@@ -292,6 +300,22 @@ export class Game {
                     Sound.Paper.play();
                     return;
                 }
+            } else if (this.stage === 40 && item.Name === "Statuette") {
+                this.stage++;
+                this.state = Game_State.Main;
+                this.screenShake = 1000;
+                Sound.BookDown.play();
+                item.Blocked = true;
+                this.devotionCurrent += 10;
+
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 42; }, 6000));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 43; }, 6500));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 44; }, 7000));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 45; }, 7500));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 46; }, 8000));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 47; }, 8500));
+                this.activeTimeouts.push(setTimeout(() => { this.state = Game_State.Done; }, 9000));
+                return;
             }
         }
 
@@ -429,6 +453,14 @@ export class Game {
                 Sound.MouthFeed.play();
                 this.activeTimeouts.push(setTimeout(() => { this.stage = 34; }, 750));
                 this.activeTimeouts.push(setTimeout(() => { this.stage = 35; }, 1500));
+
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 36; }, 4000));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 37; }, 4500));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 38; }, 5000));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 39; }, 5500));
+                this.activeTimeouts.push(setTimeout(() => { this.stage = 40; }, 6000));
+
+                this.activeTimeouts.push(setTimeout(() => { this.newItem = 3000; ItemList[6].Unlocked = true; Sound.SymbolSuccess.play(); }, 10000));
                 return;
             }
         }
@@ -437,5 +469,6 @@ export class Game {
     }
 
     keyboardEvent(code) {
+        // Nothing
     }
 }

@@ -144,6 +144,54 @@ export const Graphics = {
         {
             Paths: ["assets/stages/stage_35_1.png", "assets/stages/stage_35_2.png"],
             Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_36_1.png", "assets/stages/stage_36_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_37_1.png", "assets/stages/stage_37_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_38_1.png", "assets/stages/stage_38_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_39_1.png", "assets/stages/stage_39_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_40_1.png", "assets/stages/stage_40_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_41_1.png", "assets/stages/stage_41_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_42_1.png", "assets/stages/stage_42_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_43_1.png", "assets/stages/stage_43_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_44_1.png", "assets/stages/stage_44_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_45_1.png", "assets/stages/stage_45_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_46_1.png", "assets/stages/stage_46_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_47_1.png", "assets/stages/stage_47_2.png"],
+            Images: []
         }
     ],
 
@@ -258,6 +306,10 @@ export const Graphics = {
         Path: "assets/book.png",
         Image: new Image()
     },
+    ItemStatuette: {
+        Path: "assets/statuette.png",
+        Image: new Image()
+    },
     ItemUnknown: {
         Path: "assets/unknown.png",
         Image: new Image()
@@ -304,6 +356,7 @@ Graphics.Stage.forEach(stage => {
     "ItemKnife",
     "ItemHand",
     "ItemBook",
+    "ItemStatuette",
     "ItemUnknown"
 ].forEach(name => {
     Graphics[name].Image.src = Graphics[name].Path;
