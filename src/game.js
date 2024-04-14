@@ -258,10 +258,23 @@ export class Game {
                 item.Blocked = true;
                 this.devotionCurrent += item.Value;
                 return;
-            } else if (item.Name === "Paper" && item.Unlocked === true) {
-                this.state = Game_State.Paper;
-                Sound.Paper.play();
-                return;
+            } else if (item.Name === "Paper" && item.Unlocked === true && !item.Blocked) {
+                if (this.stage === 26) {
+                    Sound.Paper.play();
+                    this.state = Game_State.Main;
+                    this.stage++;
+                    this.screenShake = 1000;
+                    this.devotionCurrent += 10;
+                    item.Blocked = true;
+                    setTimeout(() => { this.stage = 28; }, 500);
+                    setTimeout(() => { this.stage = 29; }, 1000);
+                    setTimeout(() => { this.stage = 30; }, 1500);
+                    return;
+                } else {
+                    this.state = Game_State.Paper;
+                    Sound.Paper.play();
+                    return;
+                }
             }
         }
 

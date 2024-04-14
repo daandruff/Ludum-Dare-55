@@ -108,6 +108,22 @@ export const Graphics = {
         {
             Paths: ["assets/stages/stage_26_1.png", "assets/stages/stage_26_2.png"],
             Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_27_1.png", "assets/stages/stage_27_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_28_1.png", "assets/stages/stage_28_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_29_1.png", "assets/stages/stage_29_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_30_1.png", "assets/stages/stage_30_2.png"],
+            Images: []
         }
     ],
 
