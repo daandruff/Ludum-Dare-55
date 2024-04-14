@@ -104,6 +104,17 @@ export class Game {
                     this.context.drawImage(Graphics.Blocked.Image, 0, Math.round(Math.sin(250 + tick / animationSpeed) * 5) - 10);
                 }
 
+                let navpoints = ItemList.length;
+                let navwidth = 6 * navpoints;
+                for (let i = 0; i < navpoints; i++) {
+                    this.context.fillStyle = "#381233";
+                    this.context.fillRect((80 - navwidth / 2) + 6 * i + 1, 110, 4, 4);
+                    if (i === this.activeItem) {
+                        this.context.fillStyle = "#da871d";
+                        this.context.fillRect((80 - navwidth / 2) + 6 * i + 2, 111, 2, 2);
+                    }
+                }
+
                 this.context.drawImage(Graphics.ButtonLeft.Image, -63, Math.round(Math.sin(400 + tick / animationSpeed) * 5) + 10);
                 this.context.drawImage(Graphics.ButtonRight.Image, 63, Math.round(Math.sin(400 + tick / animationSpeed) * 5) + 10);
 
