@@ -122,7 +122,10 @@ export class Game {
                     }
                     
                     if (this.newItem) {
-                        this.context.drawImage(Graphics.NewItem.Image, 0, 0);
+                        let adjustement = 0;
+                        adjustement = this.newItem >= 2500 ? this.newItem - 2500 : adjustement;
+                        adjustement = this.newItem <= 500 ? 500 - this.newItem : adjustement;
+                        this.context.drawImage(Graphics.NewItem.Image, 0 + Math.round(adjustement / 6), 0);
                     }
                     break;
                 case Game_State.Tome:
