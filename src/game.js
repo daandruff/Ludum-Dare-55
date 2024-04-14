@@ -64,6 +64,7 @@ export class Game {
         this.devotionMax = 100;
         this.stage = 1;
         this.activeItem = 0;
+        this.password = '';
         this.newItem = 0;
         this.tutor = 0;
 
@@ -324,7 +325,51 @@ export class Game {
             }
         }
 
-        console.log(x,y);
+        if (this.stage >= 17 && this.stage <= 20) {
+            if (this.stage === 17) { this.password = ''; }
+
+            if (x > 74 && y > 66 && x < 84 && y < 76) {
+                this.password += 'a';
+                this.stage++;
+            }
+
+            if (x > 36 && y > 73 && x < 46 && y < 84) {
+                this.password += 'b';
+                this.stage++;
+            }
+
+            if (x > 64 && y > 35 && x < 77 && y < 44) {
+                this.password += 'c';
+                this.stage++;
+            }
+
+            if (x > 96 && y > 95 && x < 108 && y < 106) {
+                this.password += 'd';
+                this.stage++;
+            }
+
+            if (this.password.length === 4) {
+                setTimeout(() => {
+                    if (this.password === "abcd") {
+                        this.devotionCurrent += 10;
+                        this.stage = 22;
+                        this.screenShake = 500;
+                        setTimeout(() => { this.stage = 23; this.screenShake = 1000; }, 1500);
+                        setTimeout(() => { this.stage = 24; }, 1750);
+                        setTimeout(() => { this.stage = 25; }, 2000);
+                        setTimeout(() => { this.stage = 26; }, 2250);
+                    } else {
+                        this.stage = 22;
+                        this.screenShake = 500;
+                        setTimeout(() => { this.stage = 17; }, 1500);
+                    }
+                }, 500);
+            }
+            
+            return;
+        }
+
+        console.log(x,y, this.stage);
     }
 
     keyboardEvent(code) {

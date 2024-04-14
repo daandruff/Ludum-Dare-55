@@ -72,6 +72,42 @@ export const Graphics = {
         {
             Paths: ["assets/stages/stage_17_1.png", "assets/stages/stage_17_2.png"],
             Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_18_1.png", "assets/stages/stage_18_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_19_1.png", "assets/stages/stage_19_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_20_1.png", "assets/stages/stage_20_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_21_1.png", "assets/stages/stage_21_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_22_1.png", "assets/stages/stage_22_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_23_1.png", "assets/stages/stage_23_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_24_1.png", "assets/stages/stage_24_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_25_1.png", "assets/stages/stage_25_2.png"],
+            Images: []
+        },
+        {
+            Paths: ["assets/stages/stage_26_1.png", "assets/stages/stage_26_2.png"],
+            Images: []
         }
     ],
 
@@ -197,7 +233,7 @@ Graphics.Stage.forEach(stage => {
 [
     "TitleTop",
     "TitleBottom",
-    
+
     "Dither",
     "Tome",
     "PaperClose0",
