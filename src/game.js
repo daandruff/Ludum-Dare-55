@@ -77,6 +77,7 @@ export class Game {
         this.tutor = 0;
         this.sound = true;
         this.lockTome = false;
+        this.clickAdjustement = 0;
 
         this.screenShake = 0;
         this.activeTimeouts = [];
@@ -91,6 +92,7 @@ export class Game {
     update(dt, tick) {
         this.screenShake = this.screenShake <= 0 ? 0 : this.screenShake - dt;
         this.newItem = this.newItem <= 0 ? 0 : this.newItem - dt;
+        this.clickAdjustement = this.clickAdjustement <= 0 ? 0 : this.clickAdjustement - dt / 20;
     }
 
     draw(tick) {
@@ -130,13 +132,13 @@ export class Game {
                     this.context.drawImage(Graphics.Shadow.Image, 0, Math.round(Math.sin(200 + tick / animationSpeed) * 5) + 10);
 
                     if (ItemList[this.activeItem].Unlocked) {
-                        this.context.drawImage(ItemList[this.activeItem].Image, 0, Math.round(Math.sin(300 + tick / animationSpeed) * 5) - 10);
+                        this.context.drawImage(ItemList[this.activeItem].Image, 0, Math.round(Math.sin(300 + tick / animationSpeed) * 5) - 10 + Math.round(this.clickAdjustement));
                     } else {
-                        this.context.drawImage(Graphics.ItemUnknown.Image, 0, Math.round(Math.sin(300 + tick / animationSpeed) * 5) - 10);
+                        this.context.drawImage(Graphics.ItemUnknown.Image, 0, Math.round(Math.sin(300 + tick / animationSpeed) * 5) - 10 + Math.round(this.clickAdjustement));
                     }
 
                     if (ItemList[this.activeItem].Blocked) {
-                        this.context.drawImage(Graphics.Blocked.Image, 0, Math.round(Math.sin(250 + tick / animationSpeed) * 5) - 10);
+                        this.context.drawImage(Graphics.Blocked.Image, 0, Math.round(Math.sin(250 + tick / animationSpeed) * 5) - 10 + Math.round(this.clickAdjustement));
                     }
 
                     let navpoints = ItemList.length;
@@ -221,6 +223,7 @@ export class Game {
                 this.activeItem = ItemList.length - 1;
             }
             Sound.Page.play();
+            this.clickAdjustement = 10;
             return;
         }
 
@@ -231,6 +234,7 @@ export class Game {
                 this.activeItem = 0;
             }
             Sound.Page.play();
+            this.clickAdjustement = 10;
             return;
         }
 
